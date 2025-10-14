@@ -1,4 +1,4 @@
-# 🛒 JavaScript E-commerce — IT Academy Sprint 2.2
+# 🛒 IT Academy - Sprint 2.2 - JavaScript E-commerce
 
 In this sprint, the developer will take on the role of a **front-end developer** working for an e-commerce company.  
 The mission is to build a **demo version** of an online store that allows users to **purchase products**, **manage their shopping cart**, and **apply promotional discounts** to the final price.
