@@ -96,7 +96,8 @@ const buy = (id) => {
 
 // Exercise 2
 const cleanCart = () =>  {
-
+    cart.length = 0; // Reinitialize cart array
+    document.getElementById('count_product').textContent = '0'; // Reset counter
 }
 
 // Exercise 3
@@ -128,9 +129,16 @@ const open_modal = () =>  {
 
 // Initialize event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Add to cart buttons
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (e) => {
             buy(parseInt(e.target.dataset.productId));
         });
     });
+    
+    // Clean cart button
+    const cleanButton = document.getElementById('clean-cart');
+    if (cleanButton) {
+        cleanButton.addEventListener('click', cleanCart);
+    }
 });
