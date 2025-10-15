@@ -154,7 +154,7 @@ const printCart = () => {
     
     // Check if cart is empty
     if (cart.length === 0) {
-        cartList.innerHTML = '<tr><td colspan="4" class="text-center">Your cart is empty</td></tr>';
+        cartList.innerHTML = '<tr><td colspan="5" class="text-center">Your cart is empty</td></tr>';
         totalPriceElement.textContent = '0';
         return;
     }
@@ -173,9 +173,22 @@ const printCart = () => {
             <td>$${item.price.toFixed(2)}</td>
             <td>${item.quantity}</td>
             <td>$${itemTotal.toFixed(2)}</td>
+            <td>
+                <button class="btn btn-sm btn-danger remove-item" data-product-id="${item.id}" aria-label="Remove one ${item.name}">
+                    -
+                </button>
+            </td>
         `;
         
         cartList.appendChild(row);
+    });
+    
+    // Add event listeners to remove buttons
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productId = parseInt(e.target.dataset.productId);
+            removeFromCart(productId);
+        });
     });
     
     // Update total price
@@ -187,7 +200,26 @@ const printCart = () => {
 
 // Exercise 7
 const removeFromCart = (id) => {
-
+    const itemIndex = cart.findIndex(item => item.id === id);
+    
+    if (itemIndex === -1) return; // Item not found in cart
+    
+    const item = cart[itemIndex];
+    
+    if (item.quantity === 1) {
+        // Remove item completely if quantity is 1
+        cart.splice(itemIndex, 1);
+    } else {
+        // Decrease quantity by 1
+        item.quantity -= 1;
+    }
+    
+    // Update cart counter
+    document.getElementById('count_product').textContent = 
+        cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Update cart display
+    printCart();
 }
 
 const open_modal = () =>  {
