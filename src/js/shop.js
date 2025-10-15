@@ -103,9 +103,17 @@ const cleanCart = () =>  {
 // Exercise 3
 const calculateTotal = () =>  {
     // Calculate total price of the cart using the "cart" array
+    // Apply promotions first
+    applyPromotionsCart();
+    
     total = 0;
     for (let i = 0; i < cart.length; i++) {
-        total += cart[i].price * cart[i].quantity;
+        // Use discounted price if available, otherwise use regular price
+        if (cart[i].subtotalWithDiscount !== undefined) {
+            total += cart[i].subtotalWithDiscount;
+        } else {
+            total += cart[i].price * cart[i].quantity;
+        }
     }
     return total;
 }
@@ -113,6 +121,20 @@ const calculateTotal = () =>  {
 // Exercise 4
 const applyPromotionsCart = () =>  {
     // Apply promotions to each item in the array "cart"
+    for (let i = 0; i < cart.length; i++) {
+        const item = cart[i];
+        
+        // Check if the product has an offer and if quantity meets the requirement
+        if (item.offer && item.quantity >= item.offer.number) {
+            // Calculate price with discount
+            const discountPrice = item.price * (1 - item.offer.percent / 100);
+            // Calculate total with discount
+            item.subtotalWithDiscount = discountPrice * item.quantity;
+        } else {
+            // Remove subtotalWithDiscount if no discount applies
+            delete item.subtotalWithDiscount;
+        }
+    }
 }
 
 // Exercise 5
