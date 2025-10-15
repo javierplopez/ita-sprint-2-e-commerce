@@ -1,4 +1,3 @@
-
 // Exercise 6
 const validate = () => {
 	let error = 0;
@@ -18,7 +17,7 @@ const validate = () => {
 	if(fEmail.value == ""){
 		error++;
 	}
-	 
+	
 	if(error>0){
 		alert("Please fill in all required fields.");
 	}else{
