@@ -102,7 +102,12 @@ const cleanCart = () =>  {
 
 // Exercise 3
 const calculateTotal = () =>  {
-    // Calculate total price of the cart using the "cartList" array
+    // Calculate total price of the cart using the "cart" array
+    total = 0;
+    for (let i = 0; i < cart.length; i++) {
+        total += cart[i].price * cart[i].quantity;
+    }
+    return total;
 }
 
 // Exercise 4
