@@ -92,12 +92,18 @@ const buy = (id) => {
     // Update cart counter in UI
     document.getElementById('count_product').textContent = 
         cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Update cart display
+    printCart();
 }
 
 // Exercise 2
 const cleanCart = () =>  {
     cart.length = 0; // Reinitialize cart array
     document.getElementById('count_product').textContent = '0'; // Reset counter
+    
+    // Update cart display
+    printCart();
 }
 
 // Exercise 3
@@ -140,8 +146,42 @@ const applyPromotionsCart = () =>  {
 // Exercise 5
 const printCart = () => {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    const cartList = document.getElementById('cart_list');
+    const totalPriceElement = document.getElementById('total_price');
+    
+    // Clear existing cart content
+    cartList.innerHTML = '';
+    
+    // Check if cart is empty
+    if (cart.length === 0) {
+        cartList.innerHTML = '<tr><td colspan="4" class="text-center">Your cart is empty</td></tr>';
+        totalPriceElement.textContent = '0';
+        return;
+    }
+    
+    // Generate cart items dynamically
+    cart.forEach(item => {
+        const row = document.createElement('tr');
+        
+        // Calculate item total (with discount if applicable)
+        const itemTotal = item.subtotalWithDiscount !== undefined 
+            ? item.subtotalWithDiscount 
+            : item.price * item.quantity;
+            
+        row.innerHTML = `
+            <th scope="row">${item.name}</th>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>${item.quantity}</td>
+            <td>$${itemTotal.toFixed(2)}</td>
+        `;
+        
+        cartList.appendChild(row);
+    });
+    
+    // Update total price
+    const total = calculateTotal();
+    totalPriceElement.textContent = total.toFixed(2);
 }
-
 
 // ** Nivell II **
 
@@ -168,4 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cleanButton) {
         cleanButton.addEventListener('click', cleanCart);
     }
+    
+    // Initialize cart display
+    printCart();
 });
