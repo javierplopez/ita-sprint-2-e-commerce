@@ -170,4 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize cart display
     printCart();
+    
+    // Sticky header effect on scroll
+    const navbar = document.querySelector('.navbar');
+    const header = document.querySelector('.primary-header');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+            header.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+            header.classList.remove('scrolled');
+        }
+    });
 });
