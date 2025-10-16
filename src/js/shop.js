@@ -1,4 +1,3 @@
-// Import products data from external module
 import { products } from './products.js';
 
 // => Reminder, it's extremely important that you debug your code. 
@@ -156,10 +155,6 @@ const removeFromCart = (id) => {
         cart.reduce((sum, item) => sum + item.quantity, 0);
     
     // Update cart display
-    printCart();
-}
-
-const open_modal = () =>  {
     printCart();
 }
 

@@ -1,4 +1,3 @@
-// Products data for the e-commerce application
 export const products = [
     {
         id: 1,
