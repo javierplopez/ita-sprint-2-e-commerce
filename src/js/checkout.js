@@ -1,68 +1,75 @@
 // Exercise 6
 
-// Validation rules (shared across functions)
-const VALIDATION_RULES = {
-	fName: { pattern: /^[a-zA-ZÀ-ÿ\s]+$/, minLength: 3 },
-	fLastN: { pattern: /^[a-zA-ZÀ-ÿ\s]+$/, minLength: 3 },
-	fEmail: { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, minLength: 3 },
-	fAddress: { minLength: 3 },
-	fPassword: { pattern: /^(?=.*[a-zA-Z])(?=.*[0-9])/, minLength: 4, maxLength: 8 },
-	fPhone: { pattern: /^[0-9]{9}$/ }
-};
-
-// Core validation function (used by both validate and validateField)
-const isFieldValid = (fieldId, value) => {
-	const rule = VALIDATION_RULES[fieldId];
-	return value !== "" && 
-		value.length >= rule.minLength &&
-		(!rule.maxLength || value.length <= rule.maxLength) &&
-		(!rule.pattern || rule.pattern.test(value));
-};
-
-// Update field UI (shared function)
-const updateFieldUI = (fieldId, isValid) => {
+// Helper function to validate and show errors (eliminates duplication)
+const validateField = (fieldId, condition) => {
 	const field = document.getElementById(fieldId);
-	const errorElement = document.getElementById(`error${fieldId.charAt(1).toUpperCase() + fieldId.slice(2)}`);
+	const errorId = `error${fieldId.charAt(1).toUpperCase() + fieldId.slice(2)}`;
+	const errorElement = document.getElementById(errorId);
 	
-	field.classList.toggle('is-invalid', !isValid);
-	if (errorElement) errorElement.style.display = isValid ? 'none' : 'block';
+	// Clear previous error
+	field.classList.remove('is-invalid');
+	errorElement.style.display = 'none';
+	
+	// Validate and show error if needed
+	if (condition(field.value.trim())) {
+		field.classList.add('is-invalid');
+		errorElement.style.display = 'block';
+		return false;
+	}
+	return true;
 };
 
 // Main validation function
 const validate = () => {
-	// Clear all previous errors
-	document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
-	document.querySelectorAll('.invalid-feedback').forEach(error => error.style.display = 'none');
+	let isValid = true;
 	
-	let errors = 0;
+	// Validate all fields using the helper function
+	isValid &= validateField("fName", value => 
+		value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
 	
-	Object.keys(VALIDATION_RULES).forEach(fieldId => {
-		const field = document.getElementById(fieldId);
-		const value = field.value.trim();
-		const valid = isFieldValid(fieldId, value);
-		
-		if (!valid) {
-			updateFieldUI(fieldId, false);
-			errors++;
-		}
-	});
+	isValid &= validateField("fLastN", value => 
+		value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
 	
-	alert(errors > 0 ? "Please fix the errors in the form." : "Form submitted successfully");
+	isValid &= validateField("fEmail", value => 
+		value === "" || value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+	
+	isValid &= validateField("fAddress", value => 
+		value === "" || value.length < 3);
+	
+	isValid &= validateField("fPassword", value => 
+		value === "" || value.length < 4 || value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(value));
+	
+	isValid &= validateField("fPhone", value => 
+		value === "" || !/^[0-9]{9}$/.test(value));
+	
+	alert(isValid ? "Form submitted successfully" : "Please complete all fields correctly.");
 };
 
-// Single field validation
-const validateField = (fieldId) => {
-	const field = document.getElementById(fieldId);
-	const value = field.value.trim();
-	const valid = isFieldValid(fieldId, value);
-	
-	updateFieldUI(fieldId, valid);
-};
+// Individual field validation for real-time feedback
+const validateName = () => validateField("fName", value => 
+	value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
 
-// Initialize real-time validation
+const validateLastName = () => validateField("fLastN", value => 
+	value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
+
+const validateEmail = () => validateField("fEmail", value => 
+	value === "" || value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+
+const validateAddress = () => validateField("fAddress", value => 
+	value === "" || value.length < 3);
+
+const validatePassword = () => validateField("fPassword", value => 
+	value === "" || value.length < 4 || value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(value));
+
+const validatePhone = () => validateField("fPhone", value => 
+	value === "" || !/^[0-9]{9}$/.test(value));
+
+// Add event listeners when page loads
 document.addEventListener('DOMContentLoaded', () => {
-	Object.keys(VALIDATION_RULES).forEach(fieldId => {
-		const field = document.getElementById(fieldId);
-		if (field) field.addEventListener('blur', () => validateField(fieldId));
-	});
+	document.getElementById("fName").addEventListener('blur', validateName);
+	document.getElementById("fLastN").addEventListener('blur', validateLastName);
+	document.getElementById("fEmail").addEventListener('blur', validateEmail);
+	document.getElementById("fAddress").addEventListener('blur', validateAddress);
+	document.getElementById("fPassword").addEventListener('blur', validatePassword);
+	document.getElementById("fPhone").addEventListener('blur', validatePhone);
 });
