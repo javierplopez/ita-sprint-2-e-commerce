@@ -1,68 +1,156 @@
 // Exercise 6
-
-// Helper function to validate and show errors (eliminates duplication)
-const validateField = (fieldId, condition) => {
-	const field = document.getElementById(fieldId);
-	const errorId = `error${fieldId.charAt(1).toUpperCase() + fieldId.slice(2)}`;
-	const errorElement = document.getElementById(errorId);
-	
-	// Clear previous error
-	field.classList.remove('is-invalid');
-	errorElement.style.display = 'none';
-	
-	// Validate and show error if needed
-	if (condition(field.value.trim())) {
-		field.classList.add('is-invalid');
-		errorElement.style.display = 'block';
-		return false;
-	}
-	return true;
-};
-
-// Main validation function
 const validate = () => {
-	let isValid = true;
+	let error = 0;
 	
-	// Validate all fields using the helper function
-	isValid &= validateField("fName", value => 
-		value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
+	// Get the input fields
+	const fName = document.getElementById("fName");
+	const fLastN = document.getElementById("fLastN");
+	const fEmail = document.getElementById("fEmail");
+	const fAddress = document.getElementById("fAddress");
+	const fPassword = document.getElementById("fPassword");
+	const fPhone = document.getElementById("fPhone");
+
+	// Get the error elements
+	const errorName = document.getElementById("errorName");
+	const errorLastN = document.getElementById("errorLastN");
+	const errorEmail = document.getElementById("errorEmail");
+	const errorAddress = document.getElementById("errorAddress");
+	const errorPassword = document.getElementById("errorPassword");
+	const errorPhone = document.getElementById("errorPhone");
 	
-	isValid &= validateField("fLastN", value => 
-		value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
+	// Clear previous errors
+	document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
+	document.querySelectorAll('.invalid-feedback').forEach(error => error.style.display = 'none');
 	
-	isValid &= validateField("fEmail", value => 
-		value === "" || value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+	// Validate fields entered by the user: name, lastname, email, address, password, and phone
 	
-	isValid &= validateField("fAddress", value => 
-		value === "" || value.length < 3);
+	// Validate Name
+	if(fName.value.trim() == "" || fName.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fName.value)){
+		fName.classList.add('is-invalid');
+		errorName.style.display = 'block';
+		error++;
+	}
 	
-	isValid &= validateField("fPassword", value => 
-		value === "" || value.length < 4 || value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(value));
+	// Validate Last Name
+	if(fLastN.value.trim() == "" || fLastN.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fLastN.value)){
+		fLastN.classList.add('is-invalid');
+		errorLastN.style.display = 'block';
+		error++;
+	}
+
+	// Validate Email
+	if(fEmail.value.trim() == "" || fEmail.value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value)){
+		fEmail.classList.add('is-invalid');
+		errorEmail.style.display = 'block';
+		error++;
+	}
 	
-	isValid &= validateField("fPhone", value => 
-		value === "" || !/^[0-9]{9}$/.test(value));
+	// Validate Address
+	if(fAddress.value.trim() == "" || fAddress.value.length < 3){
+		fAddress.classList.add('is-invalid');
+		errorAddress.style.display = 'block';
+		error++;
+	}
 	
-	alert(isValid ? "Form submitted successfully" : "Please complete all fields correctly.");
+	// Validate Password (numbers and letters, 4-8 characters)
+	if(fPassword.value.trim() == "" || fPassword.value.length < 4 || fPassword.value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(fPassword.value)){
+		fPassword.classList.add('is-invalid');
+		errorPassword.style.display = 'block';
+		error++;
+	}
+	
+	// Validate Phone (only numbers, exactly 9 digits)
+	if(fPhone.value.trim() == "" || !/^[0-9]{9}$/.test(fPhone.value)){
+		fPhone.classList.add('is-invalid');
+		errorPhone.style.display = 'block';
+		error++;
+	}
+	 
+	if(error > 0){
+		alert("Please fill in all required fields correctly.");
+	}else{
+		alert("Form submitted successfully");
+	}
+}
+
+// Validate individual fields when user leaves the field
+const validateName = () => {
+	const fName = document.getElementById("fName");
+	const errorName = document.getElementById('errorName');
+	
+	fName.classList.remove('is-invalid');
+	errorName.style.display = 'none';
+	
+	if(fName.value.trim() == "" || fName.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fName.value)){
+		fName.classList.add('is-invalid');
+		errorName.style.display = 'block';
+	}
 };
 
-// Individual field validation for real-time feedback
-const validateName = () => validateField("fName", value => 
-	value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
+const validateLastName = () => {
+	const fLastN = document.getElementById("fLastN");
+	const errorLastN = document.getElementById('errorLastN');
+	
+	fLastN.classList.remove('is-invalid');
+	errorLastN.style.display = 'none';
+	
+	if(fLastN.value.trim() == "" || fLastN.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fLastN.value)){
+		fLastN.classList.add('is-invalid');
+		errorLastN.style.display = 'block';
+	}
+};
 
-const validateLastName = () => validateField("fLastN", value => 
-	value === "" || value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(value));
+const validateEmail = () => {
+	const fEmail = document.getElementById("fEmail");
+	const errorEmail = document.getElementById('errorEmail');
+	
+	fEmail.classList.remove('is-invalid');
+	errorEmail.style.display = 'none';
+	
+	if(fEmail.value.trim() == "" || fEmail.value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value)){
+		fEmail.classList.add('is-invalid');
+		errorEmail.style.display = 'block';
+	}
+};
 
-const validateEmail = () => validateField("fEmail", value => 
-	value === "" || value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+const validateAddress = () => {
+	const fAddress = document.getElementById("fAddress");
+	const errorAddress = document.getElementById('errorAddress');
+	
+	fAddress.classList.remove('is-invalid');
+	errorAddress.style.display = 'none';
+	
+	if(fAddress.value.trim() == "" || fAddress.value.length < 3){
+		fAddress.classList.add('is-invalid');
+		errorAddress.style.display = 'block';
+	}
+};
 
-const validateAddress = () => validateField("fAddress", value => 
-	value === "" || value.length < 3);
+const validatePassword = () => {
+	const fPassword = document.getElementById("fPassword");
+	const errorPassword = document.getElementById('errorPassword');
+	
+	fPassword.classList.remove('is-invalid');
+	errorPassword.style.display = 'none';
+	
+	if(fPassword.value.trim() == "" || fPassword.value.length < 4 || fPassword.value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(fPassword.value)){
+		fPassword.classList.add('is-invalid');
+		errorPassword.style.display = 'block';
+	}
+};
 
-const validatePassword = () => validateField("fPassword", value => 
-	value === "" || value.length < 4 || value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(value));
-
-const validatePhone = () => validateField("fPhone", value => 
-	value === "" || !/^[0-9]{9}$/.test(value));
+const validatePhone = () => {
+	const fPhone = document.getElementById("fPhone");
+	const errorPhone = document.getElementById('errorPhone');
+	
+	fPhone.classList.remove('is-invalid');
+	errorPhone.style.display = 'none';
+	
+	if(fPhone.value.trim() == "" || !/^[0-9]{9}$/.test(fPhone.value)){
+		fPhone.classList.add('is-invalid');
+		errorPhone.style.display = 'block';
+	}
+};
 
 // Add event listeners when page loads
 document.addEventListener('DOMContentLoaded', () => {
