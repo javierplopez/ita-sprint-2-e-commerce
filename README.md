@@ -16,7 +16,7 @@ The task is to design and implement the **core logic for product management and 
 
 ## 🛠️ Technologies
 
-- **JavaScript (ES6+)**  
+- **JavaScript**  
 - **HTML5**  
 - **CSS3**  
 
