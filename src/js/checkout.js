@@ -2,7 +2,6 @@
 const validate = () => {
 	let error = 0;
 	
-	// Get the input fields
 	const fName = document.getElementById("fName");
 	const fLastN = document.getElementById("fLastN");
 	const fEmail = document.getElementById("fEmail");
@@ -10,7 +9,6 @@ const validate = () => {
 	const fPassword = document.getElementById("fPassword");
 	const fPhone = document.getElementById("fPhone");
 
-	// Get the error elements
 	const errorName = document.getElementById("errorName");
 	const errorLastN = document.getElementById("errorLastN");
 	const errorEmail = document.getElementById("errorEmail");
@@ -18,54 +16,45 @@ const validate = () => {
 	const errorPassword = document.getElementById("errorPassword");
 	const errorPhone = document.getElementById("errorPhone");
 	
-	// Clear previous errors
 	document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
 	document.querySelectorAll('.invalid-feedback').forEach(error => error.style.display = 'none');
-	
-	// Validate fields entered by the user: name, lastname, email, address, password, and phone
-	
-	// Validate Name
+		
 	if(fName.value.trim() == "" || fName.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fName.value)){
 		fName.classList.add('is-invalid');
 		errorName.style.display = 'block';
 		error++;
 	}
 	
-	// Validate Last Name
 	if(fLastN.value.trim() == "" || fLastN.value.length < 3 || !/^[a-zA-ZÀ-ÿ\s]+$/.test(fLastN.value)){
 		fLastN.classList.add('is-invalid');
 		errorLastN.style.display = 'block';
 		error++;
 	}
 
-	// Validate Email
 	if(fEmail.value.trim() == "" || fEmail.value.length < 3 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value)){
 		fEmail.classList.add('is-invalid');
 		errorEmail.style.display = 'block';
 		error++;
 	}
 	
-	// Validate Address
 	if(fAddress.value.trim() == "" || fAddress.value.length < 3){
 		fAddress.classList.add('is-invalid');
 		errorAddress.style.display = 'block';
 		error++;
 	}
 	
-	// Validate Password (numbers and letters, 4-8 characters)
 	if(fPassword.value.trim() == "" || fPassword.value.length < 4 || fPassword.value.length > 8 || !/^(?=.*[a-zA-Z])(?=.*[0-9])/.test(fPassword.value)){
 		fPassword.classList.add('is-invalid');
 		errorPassword.style.display = 'block';
 		error++;
 	}
 	
-	// Validate Phone (only numbers, exactly 9 digits)
 	if(fPhone.value.trim() == "" || !/^[0-9]{9}$/.test(fPhone.value)){
 		fPhone.classList.add('is-invalid');
 		errorPhone.style.display = 'block';
 		error++;
 	}
-	 
+	
 	if(error > 0){
 		alert("Please fill in all required fields correctly.");
 	}else{
@@ -73,7 +62,6 @@ const validate = () => {
 	}
 }
 
-// Validate individual fields when user leaves the field
 const validateName = () => {
 	const fName = document.getElementById("fName");
 	const errorName = document.getElementById('errorName');
@@ -152,7 +140,6 @@ const validatePhone = () => {
 	}
 };
 
-// Add event listeners when page loads
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById("fName").addEventListener('blur', validateName);
 	document.getElementById("fLastN").addEventListener('blur', validateLastName);
