@@ -9,7 +9,7 @@
 }
 
 /* ====================================
-    HERO SECTION
+HERO SECTION
 ==================================== */
 .hero {
   background-image: url('../images/hero-section-img.png');
@@ -95,7 +95,7 @@
 }
 
 /* ====================================
-    TYPOGRAPHY
+TYPOGRAPHY
 ==================================== */
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    PRODUCT SECTION
+PRODUCT SECTION
 ==================================== */
 .product-section {
   padding: 4rem 0 3rem;
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    PRODUCT CARDS
+PRODUCT CARDS
 ==================================== */
 
 .product-card {
@@ -229,7 +229,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    EXTRA
+EXTRA
 ==================================== */
 
 /* Consistent spacing */
@@ -254,7 +254,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    STICKY HEADER
+STICKY HEADER
 ==================================== */
 
 .primary-header {
@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    CART MODAL
+CART MODAL
 ==================================== */
 
 .modal-content {
@@ -426,7 +426,55 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ====================================
-    FOOTER
+QUANTITY CONTROLS IN CART MODAL
+==================================== */
+
+.quantity-controls {
+  min-width: 120px;
+}
+
+.quantity-controls .btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dee2e6;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.quantity-controls .btn:hover {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: white;
+}
+
+.quantity-display {
+  min-width: 40px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--primary-dark);
+}
+
+/* Botón de eliminar todo el producto */
+.remove-all {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.remove-all:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* ====================================
+FOOTER
 ==================================== */
 
 footer {
@@ -440,7 +488,7 @@ footer p {
 }
 
 /* ====================================
-    CHECKOUT PAGE
+CHECKOUT PAGE
 ==================================== */
 
 .checkout-main {
@@ -547,7 +595,7 @@ footer p {
 }
 
 /* ====================================
-    SKIP LINK
+SKIP LINK
 ==================================== */
 .skip-link {
     position: absolute;
@@ -567,7 +615,7 @@ footer p {
 }
 
 /* ====================================
-    ADDITIONAL RESPONSIVE
+ADDITIONAL RESPONSIVE
 ==================================== */
 
 /* Tablet improvements */

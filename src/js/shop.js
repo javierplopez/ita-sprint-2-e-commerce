@@ -102,23 +102,35 @@ const printCart = () => {
         row.innerHTML = `
             <th scope="row">${item.name}</th>
             <td>$${item.price.toFixed(2)}</td>
-            <td>${item.quantity}</td>
-            <td>$${itemTotal.toFixed(2)}</td>
             <td>
-                <button class="btn btn-sm btn-danger remove-item" data-product-id="${item.id}" aria-label="Remove one ${item.name}">
-                    -
-                </button>
+                <div class="quantity-controls d-flex align-items-center justify-content-center">
+                    <button class="btn btn-sm btn-outline-secondary decrease-item" data-product-id="${item.id}" aria-label="Decrease ${item.name} quantity">
+                        -
+                    </button>
+                    <span class="quantity-display mx-2 fw-bold">${item.quantity}</span>
+                    <button class="btn btn-sm btn-outline-secondary increase-item" data-product-id="${item.id}" aria-label="Increase ${item.name} quantity">
+                        +
+                    </button>
+                </div>
             </td>
+            <td>$${itemTotal.toFixed(2)}</td>
         `;
         
         cartList.appendChild(row);
     });
     
-    // Add event listeners to remove buttons
-    document.querySelectorAll('.remove-item').forEach(button => {
+    // Add event listeners to quantity control buttons
+    document.querySelectorAll('.decrease-item').forEach(button => {
         button.addEventListener('click', (e) => {
             const productId = parseInt(e.target.dataset.productId);
             removeFromCart(productId);
+        });
+    });
+    
+    document.querySelectorAll('.increase-item').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productId = parseInt(e.target.dataset.productId);
+            addToCart(productId);
         });
     });
     
@@ -129,7 +141,7 @@ const printCart = () => {
 
 // ** Nivell II **
 
-// Exercise 7
+// Exercise 7 - Decrease quantity by 1
 const removeFromCart = (id) => {
     const itemIndex = cart.findIndex(item => item.id === id);
     
@@ -143,6 +155,27 @@ const removeFromCart = (id) => {
     } else {
         // Decrease quantity by 1
         item.quantity -= 1;
+    }
+    
+    // Update cart counter
+    document.getElementById('count_product').textContent = 
+        cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Update cart display
+    printCart();
+}
+
+// Add one unit to cart (increase quantity)
+const addToCart = (id) => {
+    const itemIndex = cart.findIndex(item => item.id === id);
+    
+    if (itemIndex !== -1) {
+        // Item exists, increase quantity
+        cart[itemIndex].quantity += 1;
+    } else {
+        // Item doesn't exist, use buy function
+        buy(id);
+        return;
     }
     
     // Update cart counter
