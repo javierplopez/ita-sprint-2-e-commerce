@@ -1,6 +1,5 @@
 // Exercise 6
 const validate = (event) => {
-	// Prevent default form submission
 	if (event) {
 		event.preventDefault();
 	}
@@ -22,11 +21,9 @@ const validate = (event) => {
 	const errorPassword = document.getElementById("errorPassword");
 	const errorPhone = document.getElementById("errorPhone");
 	
-	// Clear all previous error states
 	document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
 	document.querySelectorAll('.invalid-feedback').forEach(error => error.style.display = 'none');
 	
-	// Validate in order of appearance in the form to focus the first error
 	const validations = [
 		{
 			field: fName,
@@ -60,14 +57,12 @@ const validate = (event) => {
 		}
 	];
 	
-	// Check each validation and mark errors
 	validations.forEach(validation => {
 		if (validation.condition) {
 			validation.field.classList.add('is-invalid');
 			validation.error.style.display = 'block';
 			error++;
 			
-			// Store the first invalid field
 			if (!firstInvalidField) {
 				firstInvalidField = validation.field;
 			}
@@ -75,35 +70,24 @@ const validate = (event) => {
 	});
 	
 	if (error > 0) {
-		// Focus the first invalid field
 		if (firstInvalidField) {
 			firstInvalidField.focus();
-			// Scroll to the field smoothly
 			firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}
-		
-		// Show error message without alert (more user-friendly)
 		showFormMessage("Please fill in all required fields correctly.", "error");
 	} else {
-		// Form is valid - show success message
 		showFormMessage("Form submitted successfully! Processing your order...", "success");
-		
-		// Here you could actually submit the form data
-		// submitFormData();
 	}
 	
 	return error === 0;
 }
 
-// Helper function to show form messages
 const showFormMessage = (message, type) => {
-	// Remove any existing message
 	const existingMessage = document.querySelector('.form-message');
 	if (existingMessage) {
 		existingMessage.remove();
 	}
 	
-	// Create new message element
 	const messageDiv = document.createElement('div');
 	messageDiv.className = `form-message alert ${type === 'success' ? 'alert-success' : 'alert-danger'} mt-3`;
 	messageDiv.innerHTML = `
@@ -111,11 +95,9 @@ const showFormMessage = (message, type) => {
 		${message}
 	`;
 	
-	// Insert message before the submit button
 	const submitButton = document.getElementById('btn');
 	submitButton.parentNode.insertBefore(messageDiv, submitButton);
 	
-	// Auto-remove success messages after 5 seconds
 	if (type === 'success') {
 		setTimeout(() => {
 			if (messageDiv.parentNode) {
@@ -204,7 +186,6 @@ const validatePhone = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Add blur event listeners for real-time validation
 	document.getElementById("fName").addEventListener('blur', validateName);
 	document.getElementById("fLastN").addEventListener('blur', validateLastName);
 	document.getElementById("fEmail").addEventListener('blur', validateEmail);
@@ -212,13 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById("fPassword").addEventListener('blur', validatePassword);
 	document.getElementById("fPhone").addEventListener('blur', validatePhone);
 	
-	// Add form submit event listener to handle form submission properly
 	const form = document.querySelector('.checkout-form');
 	if (form) {
 		form.addEventListener('submit', validate);
 	}
 	
-	// Also handle the button click event (as backup)
 	const submitButton = document.getElementById('btn');
 	if (submitButton) {
 		submitButton.addEventListener('click', validate);
