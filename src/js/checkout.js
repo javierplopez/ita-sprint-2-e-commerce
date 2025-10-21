@@ -133,17 +133,17 @@ const validate = (event) => {
 		event.preventDefault();
 	}
 	
-	let error = 0;
+	let errorCount = 0;
 	let firstInvalidField = null;
 	
 	document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
-	document.querySelectorAll('.invalid-feedback').forEach(error => error.style.display = 'none');
+	document.querySelectorAll('.invalid-feedback').forEach(errorElement => errorElement.style.display = 'none');
 	
 	Object.keys(VALIDATION_RULES).forEach(fieldKey => {
 		const isValid = validateField(fieldKey);
 		
 		if (!isValid) {
-			error++;
+			errorCount++;
 			
 			if (!firstInvalidField) {
 				firstInvalidField = document.getElementById(VALIDATION_RULES[fieldKey].fieldId);
@@ -151,7 +151,7 @@ const validate = (event) => {
 		}
 	});
 	
-	if (error > 0) {
+	if (errorCount > 0) {
 		if (firstInvalidField) {
 			firstInvalidField.focus();
 			firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -161,7 +161,7 @@ const validate = (event) => {
 		showFormMessage("Form submitted successfully! Processing your order...", "success");
 	}
 	
-	return error === 0;
+	return errorCount === 0;
 }
 
 const showFormMessage = (message, type) => {
