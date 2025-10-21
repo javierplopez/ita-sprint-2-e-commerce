@@ -458,19 +458,39 @@ QUANTITY CONTROLS IN CART MODAL
   color: var(--primary-dark);
 }
 
-/* Botón de eliminar todo el producto */
-.remove-all {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
+/* ====================================
+DISCOUNT COLUMN
+==================================== */
+
+.discount-column {
+  min-width: 140px;
 }
 
-.remove-all:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
+.discount-column .badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+}
+
+.discount-column .bg-success {
+  background-color: #28a745 !important;
+}
+
+.discount-column small {
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.discount-column .text-muted {
+  color: #6c757d !important;
+  font-style: italic;
+}
+
+/* Para productos sin ofertas */
+.discount-column .no-offer {
+  color: #adb5bd;
+  font-size: 0.875rem;
 }
 
 /* ====================================

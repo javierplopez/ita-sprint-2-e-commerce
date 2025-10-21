@@ -98,6 +98,30 @@ const printCart = () => {
         const itemTotal = item.subtotalWithDiscount !== undefined 
             ? item.subtotalWithDiscount 
             : item.price * item.quantity;
+        
+        // Generate discount information
+        let discountInfo = '';
+        if (item.offer && item.quantity >= item.offer.number) {
+            const discountPercent = item.offer.percent;
+            const savedAmount = (item.price * item.quantity) - item.subtotalWithDiscount;
+            discountInfo = `
+                <span class="badge bg-success">
+                    -${discountPercent}%
+                </span>
+                <small class="d-block text-success fw-bold mt-1">
+                    Ahorras $${savedAmount.toFixed(2)}
+                </small>
+            `;
+        } else if (item.offer) {
+            discountInfo = `
+                <small class="text-info">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Compra ${item.offer.number} para ${item.offer.percent}% desc.
+                </small>
+            `;
+        } else {
+            discountInfo = '<span class="no-offer">Sin oferta</span>';
+        }
             
         row.innerHTML = `
             <th scope="row">${item.name}</th>
@@ -113,6 +137,7 @@ const printCart = () => {
                     </button>
                 </div>
             </td>
+            <td class="text-center discount-column">${discountInfo}</td>
             <td>$${itemTotal.toFixed(2)}</td>
         `;
         
