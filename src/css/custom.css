@@ -11,6 +11,7 @@
 /* ====================================
 HERO SECTION
 ==================================== */
+
 .hero {
   background-image: url('../images/hero-section-img.png');
   background-size: cover;
@@ -60,11 +61,10 @@ HERO SECTION
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 1px 1px 4px rgba(0, 0, 0, 1);
 }
 
-/* Responsive Hero */
 @media (max-width: 768px) {
   .hero {
     min-height: 60vh;
-    background-attachment: scroll; /* Better performance on mobile */
+    background-attachment: scroll;
   }
   
   .hero h1 {
@@ -97,11 +97,12 @@ HERO SECTION
 /* ====================================
 TYPOGRAPHY
 ==================================== */
+
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
   color: #2c2c2c;
-padding-top: 0; /* The sticky header doesn't need additional padding */
+padding-top: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -113,6 +114,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ====================================
 PRODUCT SECTION
 ==================================== */
+
 .product-section {
   padding: 4rem 0 3rem;
 }
@@ -130,7 +132,6 @@ PRODUCT SECTION
   margin-right: 1rem;
 }
 
-/* Subtle line below the title */
 .product-section h2::after {
   content: '';
   position: absolute;
@@ -232,22 +233,18 @@ PRODUCT CARDS
 EXTRA
 ==================================== */
 
-/* Consistent spacing */
 .container {
     max-width: 1200px;
 }
 
-/* Improved text contrast */
 .text-white-50 {
     opacity: 0.8 !important;
 }
 
-/* Smooth transitions for better UX */
 * {
     transition: all 0.2s ease-in-out;
 }
 
-/* Enhanced focus visible for accessibility */
 *:focus-visible {
     outline: 2px solid var(--accent-blue);
     outline-offset: 2px;
@@ -393,7 +390,6 @@ CART MODAL
   transform: scale(1.1);
 }
 
-/* Cart total */
 .modal-body .fs-3 {
   background-color: #f8f9fa;
   padding: 1.5rem;
@@ -487,7 +483,6 @@ DISCOUNT COLUMN
   font-style: italic;
 }
 
-/* Para productos sin ofertas */
 .discount-column .no-offer {
   color: #adb5bd;
   font-size: 0.875rem;
@@ -597,7 +592,6 @@ CHECKOUT PAGE
   box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.5);
 }
 
-/* Responsive for checkout */
 @media (max-width: 768px) {
   .checkout-form-container {
     padding: 2rem 1.5rem;
@@ -615,8 +609,44 @@ CHECKOUT PAGE
 }
 
 /* ====================================
+FORM MESSAGES
+==================================== */
+
+.form-message {
+  border-radius: 8px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+.form-message i {
+  font-size: 1.1rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-control:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25) !important;
+}
+
+.form-control.is-invalid:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* ====================================
 SKIP LINK
 ==================================== */
+
 .skip-link {
     position: absolute;
     top: -40px;
@@ -638,7 +668,6 @@ SKIP LINK
 ADDITIONAL RESPONSIVE
 ==================================== */
 
-/* Tablet improvements */
 @media (max-width: 992px) {
     .product-section h2 {
         font-size: 2.25rem;
@@ -656,7 +685,6 @@ ADDITIONAL RESPONSIVE
         box-shadow: var(--shadow-subtle);
     }
     
-    /* Better spacing on mobile when navbar is expanded */
     .navbar-collapse.show {
         background-color: white;
         box-shadow: var(--shadow-subtle);
@@ -666,7 +694,6 @@ ADDITIONAL RESPONSIVE
     }
 }
 
-/* Mobile improvements */
 @media (max-width: 576px) {
     .product-section {
         padding: 3rem 0 2rem;
@@ -678,7 +705,7 @@ ADDITIONAL RESPONSIVE
     }
     
     .product-card:hover {
-        transform: none; /* Disable hover effects on mobile */
+        transform: none;
     }
     
     .add-to-cart {
